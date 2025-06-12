@@ -98,6 +98,9 @@
 												<td class="text-center"><span class="status_btn pstatus_{{ $row->payment_status_id }}">{{ $row->pstatus_name }}</span></td>
 												<td class="text-center"><span class="status_btn ostatus_{{ $row->booking_status_id }}">{{ $row->bstatus_name }}</span></td>
 												<td class="text-center">
+													@if($row->payment_id != null)
+													<a title="{{ __('Payment Url') }}" class="mr10" href="{{ $row->payment_url }}" target="_blank"><i class="bi bi-arrow-up-right"></i></a>
+													@endif
 													<a title="{{ __('Invoice') }}" class="mr10" href="{{ route('frontend.invoice', [$row->id, $row->booking_no]) }}"><i class="bi bi-cloud-arrow-down"></i></a>
 													<a title="{{ __('View') }}" href="{{ route('frontend.invoice-details', [$row->id, $row->booking_no]) }}"><i class="bi bi-eye"></i></a>
 												</td>

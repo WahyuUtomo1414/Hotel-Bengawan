@@ -38,5 +38,12 @@ class Booking_manage extends Model
 		'city',
 		'address',
 		'comments',
-    ];	
+		'payment_url',
+		'payment_id',
+		'person',
+		'extra_bed',
+		'extra_person',
+		'extra_person_price',
+		'extra_bed_price'
+	];	
 }

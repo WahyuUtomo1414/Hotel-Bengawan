@@ -305,6 +305,9 @@ class RoomsController extends Controller
 		$thumbnail = $request->input('f_thumbnail');
 		$cover_img = $request->input('cover_img');
 		$is_publish = $request->input('is_publish');
+		$price2 = $request->input('price2');
+		$extra_bed = $request->input('extra_bed');
+		$extra_person = $request->input('extra_person');
 		
 		$validator_array = array(
 			'room_name' => $request->input('title'),
@@ -317,7 +320,10 @@ class RoomsController extends Controller
 			'language' => $request->input('lan'),
 			'featured_image' => $request->input('f_thumbnail'),
 			'subheader_image' => $request->input('cover_img'),
-			'status' => $request->input('is_publish')
+			'status' => $request->input('is_publish'),
+			'price2' => $request->input('price2'),
+			'extra_bed' => $request->input('extra_bed'),
+			'extra_person' => $request->input('extra_person')
 		);
 		
 		$rId = $id == '' ? '' : ','.$id;
@@ -332,7 +338,10 @@ class RoomsController extends Controller
 			'language' => 'required',
 			'featured_image' => 'required',
 			'subheader_image' => 'required',
-			'status' => 'required'
+			'status' => 'required',
+			'price2' => 'required',
+			'extra_bed' => 'required',
+			'extra_person' => 'required'
 		]);
 
 		$errors = $validator->errors();
@@ -452,7 +461,10 @@ class RoomsController extends Controller
 			'beds' => $beds,
 			'is_featured' => $is_featured,
 			'is_publish' => $is_publish,
-			'lan' => $lan
+			'lan' => $lan,
+			'price2' => $price2,
+			'extra_bed' => $extra_bed,
+			'extra_person' => $extra_person
 		);
 		
 		$response = Room::where('id', $id)->update($data);
@@ -485,16 +497,21 @@ class RoomsController extends Controller
 
 		$id = $request->input('RecordId');
 		$price = $request->input('price');
+		$price2 = $request->input('price2');
 		$old_price = $request->input('old_price');
+		$old_price2 = $request->input('old_price2');
 		$is_discount = $request->input('is_discount');
 
 		$validator_array = array(
-			'price' => $price
+			'price' => $price,
+			'price2' => $price2
 		);
 		
 		$validator = Validator::make($validator_array, [
-			'price' => 'required'
+			'price' => 'required',
+			'price2' => 'required'
 		]);
+
 
 		$errors = $validator->errors();
 		
@@ -504,9 +521,17 @@ class RoomsController extends Controller
 			return response()->json($res);
 		}
 		
+		if($errors->has('price2')){
+			$res['msgType'] = 'error';
+			$res['msg'] = $errors->first('price2');
+			return response()->json($res);
+		}
+
 		$data = array(
 			'price' => $price,
 			'old_price' => $old_price,
+			'price2' => $price2,
+			'old_price2' => $old_price2,
 			'is_discount' => $is_discount
 		);
 		

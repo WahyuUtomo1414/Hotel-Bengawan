@@ -37,7 +37,7 @@
 				<li><a href="{{ route('backend.our-services') }}">{{ __('Our Services') }}</a></li>
 				<li><a href="{{ route('backend.home-video') }}">{{ __('Video Section') }}</a></li>
 				<li><a href="{{ route('backend.testimonial') }}">{{ __('Testimonial') }}</a></li>
-				<li><a href="{{ route('backend.offer-ads') }}">{{ __('Offer & Ads') }}</a></li>
+				{{-- <li><a href="{{ route('backend.offer-ads') }}">{{ __('Offer & Ads') }}</a></li> --}}
 				<li><a href="{{ route('backend.section-manage') }}">{{ __('Section Manage') }}</a></li>
 			</ul>
 		</li>
@@ -61,7 +61,7 @@
 			</ul> --}}
 		</li>
 		<li><a href="{{ route('backend.customers') }}"><i class="fa fa-users"></i>{{ __('Customers') }}</a></li>
-		<li><a href="{{ route('backend.contact') }}"><i class="fa fa-envelope"></i>{{ __('Contact') }}</a></li>
+		{{-- <li><a href="{{ route('backend.contact') }}"><i class="fa fa-envelope"></i>{{ __('Contact') }}</a></li> --}}
 		{{-- <li class="dropdown"><a class="nav-link has-dropdown" href="#" data-toggle="dropdown"><i class="fa fa-paper-plane"></i>{{ __('Newsletters') }}</a>
 			<ul class="dropdown-menu">
 				<li><a href="{{ route('backend.subscribers') }}">{{ __('Subscribers') }}</a></li>
@@ -69,12 +69,12 @@
 				<li><a href="{{ route('backend.mailchimp-settings') }}">{{ __('MailChimp Settings') }}</a></li>
 			</ul>
 		</li> --}}
-		<li class="dropdown"><a class="nav-link has-dropdown" href="#" data-toggle="dropdown"><i class="fa fa-language"></i>{{ __('Languages') }}</a>
+		{{-- <li class="dropdown"><a class="nav-link has-dropdown" href="#" data-toggle="dropdown"><i class="fa fa-language"></i>{{ __('Languages') }}</a>
 			<ul class="dropdown-menu">
 				<li><a href="{{ route('backend.languages') }}">{{ __('Languages') }}</a></li>
 				<li><a href="{{ route('backend.language-keywords') }}">{{ __('Language Keywords') }}</a></li>
 			</ul>
-		</li>
+		</li> --}}
 		<li><a href="{{ route('backend.media') }}"><i class="fa fa-picture-o"></i>{{ __('Media') }}</a></li>
 		<li><a id="active-settings" href="{{ route('backend.general') }}"><i class="fa fa-cogs"></i>{{ __('Settings') }}</a></li>
 		<li><a href="{{ route('backend.users') }}"><i class="fa fa-user-plus"></i>{{ __('Users') }}</a></li>

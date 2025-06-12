@@ -188,6 +188,21 @@
     <table class="border-none" width="100%" cellpadding="6" cellspacing="0">
         <tr>
             <td class="w-50" align="left"><strong>{{ $assignRoomsText }}</strong></td>
+            <td class="w-30" align="right"></td>
+            <td class="w-20" align="right"></td>
+        </tr>
+        <tr>
+            <td class="w-50" align="left"></td>
+            <td class="w-30" align="right"><strong>{{ __('Extra bed') }} ({{ $booking->extra_bed }}x)</strong>: </td>
+            <td class="w-20" align="right"><strong>{{ $extraBedPriceFormatted }}</strong></td>
+        </tr>
+        <tr>
+            <td class="w-50" align="left"></td>
+            <td class="w-30" align="right"><strong>{{ __('Extra person') }} ({{ $booking->extra_person }}x)</strong>: </td>
+            <td class="w-20" align="right"><strong>{{ $extraPersonPriceFormatted }}</strong></td>
+        </tr>
+        <tr>
+            <td class="w-50" align="left"></td>
             <td class="w-30" align="right"><strong>{{ __('Subtotal') }}</strong>: </td>
             <td class="w-20" align="right"><strong>{{ $subtotalFormatted }}</strong></td>
         </tr>

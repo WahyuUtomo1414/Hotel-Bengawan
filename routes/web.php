@@ -59,7 +59,7 @@ Route::post('/user/ChangePassword', [App\Http\Controllers\Frontend\MyDashboardCo
 Route::get('/invoice-details/{id}/{booking_no}', [App\Http\Controllers\Frontend\MyDashboardController::class, 'MyOrderDetails'])->name('frontend.invoice-details');
 
 //Checkout
-Route::get('/checkout/{id}/{title}', [App\Http\Controllers\Frontend\CheckoutFrontController::class, 'LoadCheckout'])->name('frontend.checkout');
+Route::get('/checkout/{id}/{title}', [App\Http\Controllers\Frontend\CheckoutFrontController::class, 'LoadCheckout'])->name('frontend.checkout')->middleware('auth.frontend');
 Route::post('/frontend/send_booking_request', [App\Http\Controllers\Frontend\CheckoutFrontController::class, 'SendBookingRequest'])->name('frontend.send_booking_request');
 Route::get('/thank', [App\Http\Controllers\Frontend\CheckoutFrontController::class, 'LoadThank'])->name('frontend.thank');
 Route::post('/frontend/getCheckOutTotalPrice', [App\Http\Controllers\Frontend\CheckoutFrontController::class, 'getCheckOutTotalPrice'])->name('frontend.getCheckOutTotalPrice');
@@ -461,12 +461,7 @@ Route::prefix('backend')->group(function(){
 	
 	//Payment methods
 	Route::get('/payment-methods', [App\Http\Controllers\Backend\SettingsController::class, 'loadPaymentMethodsPage'])->name('backend.payment-methods')->middleware(['auth','is_admin']);
-	Route::post('/StripeSettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'StripeSettingsUpdate'])->name('backend.StripeSettingsUpdate')->middleware(['auth','is_admin']);
-	Route::post('/PaypalSettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'PaypalSettingsUpdate'])->name('backend.PaypalSettingsUpdate')->middleware(['auth','is_admin']);
-	Route::post('/RazorpaySettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'RazorpaySettingsUpdate'])->name('backend.RazorpaySettingsUpdate')->middleware(['auth','is_admin']);
-	Route::post('/MollieSettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'MollieSettingsUpdate'])->name('backend.MollieSettingsUpdate')->middleware(['auth','is_admin']);
-	Route::post('/CODSettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'CODSettingsUpdate'])->name('backend.CODSettingsUpdate')->middleware(['auth','is_admin']);
-	Route::post('/BankSettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'BankSettingsUpdate'])->name('backend.BankSettingsUpdate')->middleware(['auth','is_admin']);
+	Route::post('/MidtransSettingsUpdate', [App\Http\Controllers\Backend\SettingsController::class, 'MidtransSettingsUpdate'])->name('backend.BankSettingsUpdate')->middleware(['auth','is_admin']);
 	
 	//Media Settings
 	Route::get('/media-settings', [App\Http\Controllers\Backend\SettingsController::class, 'loadMediaSettingsPage'])->name('backend.media-settings')->middleware(['auth','is_admin']);

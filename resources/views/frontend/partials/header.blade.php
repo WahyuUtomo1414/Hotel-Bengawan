@@ -24,8 +24,20 @@
 									<a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 										{{ Auth::user()->name }}
 									</a>
+									@php
+									$routeDashboard = "";
+
+									if(Auth::user()->role_id == 1) {
+										$routeDashboard = route('backend.dashboard');
+									} elseif(Auth::user()->role_id == 2) {
+										$routeDashboard = route('frontend.my-dashboard');
+									} elseif(Auth::user()->role_id == 3) {
+										$routeDashboard = route('receptionist.dashboard');
+									}
+
+									@endphp
 									<ul class="dropdown-menu dropdown-menu-end">
-										<li><a class="dropdown-item" href="{{ route('frontend.my-dashboard') }}">{{ __('My Dashboard') }}</a></li>
+										<li><a class="dropdown-item" href="{{ Auth::user()->role_id == 1 ? route('backend.dashboard') : route('receptionist.dashboard') }}">{{ __('My Dashboard') }}</a></li>
 										<li><a class="dropdown-item" href="{{ route('logout') }}"
 										onclick="event.preventDefault();
 										document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>

@@ -28,20 +28,34 @@
 							<!--Data Entry Form-->
 							<form novalidate="" data-validate="parsley" id="DataEntry_formId">
 								<div class="row">
-									<div class="col-lg-4">
+									<div class="col-lg-6">
 										<div class="form-group">
-											<label for="price">{{ __('Price') }}<span class="red">*</span></label>
+											<label for="price">{{ __('Price') }} 1 Person<span class="red">*</span></label>
 											<input value="{{ $datalist['price'] }}" name="price" id="price" type="text" class="form-control parsley-validated" data-required="true">
 										</div>
 									</div>
-									<div class="col-lg-4">
+									<div class="col-lg-6">
 										<div class="form-group">
 											<label for="old_price">{{ __('Old Price') }}</label>
 											<input value="{{ $datalist['old_price'] }}" name="old_price" id="old_price" type="text" class="form-control">
 										</div>
 									</div>
 									
-									<div class="col-lg-4">
+									
+	
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="price2">{{ __('Price') }} 2 person<span class="red">*</span></label>
+											<input value="{{ $datalist['price2'] }}" name="price2" id="price2" type="text" class="form-control parsley-validated" data-required="true">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label for="old_price2">{{ __('Old Price') }}</label>
+											<input value="{{ $datalist['old_price2'] }}" name="old_price2" id="old_price2" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="col-lg-12">
 										<div class="form-group">
 											<label for="is_discount">{{ __('Discount') }}</label>
 											<select name="is_discount" id="is_discount" class="chosen-select form-control">
@@ -50,6 +64,7 @@
 											</select>
 										</div>
 									</div>
+									
 								</div>
 								<input value="{{ $datalist['id'] }}" type="text" name="RecordId" id="RecordId" class="dnone">
 								<div class="row tabs-footer mt-15">

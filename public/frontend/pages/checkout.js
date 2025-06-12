@@ -23,57 +23,8 @@ $(function () {
 		}
     });
 	
-    $("#payment_method_stripe").on("click", function () {
-		$("#pay_paypal").addClass("hideclass");
-		$("#pay_razorpay").addClass("hideclass");
-		$("#pay_mollie").addClass("hideclass");
-		$("#pay_cod").addClass("hideclass");
-		$("#pay_bank").addClass("hideclass");
-		$("#pay_stripe").removeClass("hideclass");
-    });
-	
-    $("#payment_method_paypal").on("click", function () {
-		$("#pay_stripe").addClass("hideclass");
-		$("#pay_razorpay").addClass("hideclass");
-		$("#pay_mollie").addClass("hideclass");
-		$("#pay_cod").addClass("hideclass");
-		$("#pay_bank").addClass("hideclass");
-		$("#pay_paypal").removeClass("hideclass");
-    });
-	
-    $("#payment_method_razorpay").on("click", function () {
-		$("#pay_stripe").addClass("hideclass");
-		$("#pay_paypal").addClass("hideclass");
-		$("#pay_mollie").addClass("hideclass");
-		$("#pay_cod").addClass("hideclass");
-		$("#pay_bank").addClass("hideclass");
-		$("#pay_razorpay").removeClass("hideclass");
-    });
-	
-    $("#payment_method_mollie").on("click", function () {
-		$("#pay_stripe").addClass("hideclass");
-		$("#pay_paypal").addClass("hideclass");
-		$("#pay_razorpay").addClass("hideclass");
-		$("#pay_cod").addClass("hideclass");
-		$("#pay_bank").addClass("hideclass");
-		$("#pay_mollie").removeClass("hideclass");
-    });
-	
-    $("#payment_method_cod").on("click", function () {
-		$("#pay_stripe").addClass("hideclass");
-		$("#pay_paypal").addClass("hideclass");
-		$("#pay_razorpay").addClass("hideclass");
-		$("#pay_mollie").addClass("hideclass");
-		$("#pay_bank").addClass("hideclass");
-		$("#pay_cod").removeClass("hideclass");
-    });
 	
     $("#payment_method_bank").on("click", function () {
-		$("#pay_stripe").addClass("hideclass");
-		$("#pay_paypal").addClass("hideclass");
-		$("#pay_razorpay").addClass("hideclass");
-		$("#pay_mollie").addClass("hideclass");
-		$("#pay_cod").addClass("hideclass");
 		$("#pay_bank").removeClass("hideclass");
     });
 
@@ -109,6 +60,15 @@ $(function () {
 	$("#room").on("blur", function () {
 		onCheckOutTotalPrice();
 	});
+
+	$("#person").on("blur", function () {
+		onCheckOutTotalPrice();
+	});
+
+	$("#extra_bed").on("blur", function () {
+		onCheckOutTotalPrice();
+	});
+
 });
 
 function showPerslyError() {
@@ -128,64 +88,17 @@ jQuery('#checkout_formid').parsley({
         },
         onFormSubmit: function (isFormValid, event) {
             if (isFormValid) {
-				if(payment_method == 5){
-					onPaymentByRazorpay();
-				}else{
-					onConfirmMakeOrder();
-				}
-				
+				onConfirmMakeOrder();				
                 return false;
             }
         }
     }
 });
 
-function onPaymentByRazorpay() {
-
-	var amount = parseFloat(total_amount);
-	var razorpayAmount = amount.toFixed(2) * 100;
-
-	var	options = {
-			"key": razorpay_key_id,
-			"amount": razorpayAmount,
-			"currency": razorpay_currency,
-			"name": site_name, //merchant user name
-			"handler": function(response) {
-				var razorpay_payment_id = response.razorpay_payment_id;
-				$("#razorpay_payment_id").val(razorpay_payment_id);
-				if(razorpay_payment_id != ''){
-					onConfirmMakeOrder();
-				}
-			},
-			"prefill": {
-				"name": $("#name").val(), //user name
-				"email": $("#email").val(), //user email
-			},
-			"theme": {
-				"color": theme_color,
-			},
-			"modal": {
-				"ondismiss": function(e) {}
-			}
-		};
-	var rzp1 = new Razorpay(options);
-	rzp1.open();		
-}
-
 function onConfirmMakeOrder() {
 
 	var payment_method = $('input[name="payment_method"]:checked').val();
 
- 	if(payment_method == 3){
-		if(isenable_stripe == 1){
-			if(validCardNumer == 0){
-				$("span.payment_method_error").text(TEXT['Please type valid card number']);
-				return;
-			}
-		}
-	}else{
-		$("span.payment_method_error").text('');
-	}
 	
 	var checkout_btn = $('.checkout_btn').html();
 	
@@ -247,6 +160,8 @@ function onCheckOutTotalPrice() {
 	var checkout = $("#checkout_date").val();
 	var room = $("#room").val();
 	var roomtypeid = $("#roomtype_id").val();
+	var person = $("#person").val();
+	var extrabed = $("#extra_bed").val();
 	
 	if((checkin == '') || (checkout == '') || (room == '')) {
 		return;
@@ -260,7 +175,7 @@ function onCheckOutTotalPrice() {
     $.ajax({
 		type : 'POST',
 		url: base_url + '/frontend/getCheckOutTotalPrice',
-		data:{checkin_date:checkin, checkout_date:checkout, total_room:room, roomtype_id:roomtypeid },
+		data:{checkin_date:checkin, checkout_date:checkout, total_room:room, roomtype_id:roomtypeid, extra_bed: extrabed, person: person},
 		success: function (response) {
 			var data = response;
 			$("#TotalPrice").html(data.total_table);

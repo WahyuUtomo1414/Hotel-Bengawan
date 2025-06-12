@@ -34,6 +34,9 @@
 					<div class="btn-group action-group">
 						<a class="action-btn" href="javascript:void(0);" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 						<div class="dropdown-menu dropdown-menu-right">
+							@if($row->payment_url != null)
+							<a class="dropdown-item" href="{{ $row->payment_url }}" target="_blank">{{ __('Payment URL') }}</a>
+							@endif
 							<a class="dropdown-item" href="{{ route('receptionist.booking', [$row->id, 'booking-request']) }}">{{ __('Edit') }}</a>
 							<a class="dropdown-item" href="{{ route('frontend.invoice', [$row->id, $row->booking_no]) }}">{{ __('Invoice') }}</a>
 							<a onclick="onDelete({{ $row->id }})" class="dropdown-item" href="javascript:void(0);">{{ __('Delete') }}</a>

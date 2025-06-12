@@ -65,6 +65,8 @@ class InvoiceController extends Controller
         $taxFormatted = $formatPrice($booking->tax ?? 0);
         $discountFormatted = $formatPrice($booking->discount ?? 0);
         $totalAmountFormatted = $formatPrice($booking->total_amount ?? 0);
+           $extraBedPriceFormatted = $formatPrice($booking->extra_bed_price ?? 0);
+        $extraPersonPriceFormatted = $formatPrice($booking->extra_person_price ?? 0);
 
         $oldPriceHtml = '';
         $calOldPriceHtml = '';
@@ -107,6 +109,8 @@ class InvoiceController extends Controller
             'gtext'                 => $gtext,
             'booking'               => $booking, // Pass the whole booking object
             'totalDays'             => $totalDays,
+            'extraBedPriceFormatted'=> $extraBedPriceFormatted,
+            'extraPersonPriceFormatted'=> $extraPersonPriceFormatted,
             'oPriceFormatted'       => $oPriceFormatted,
             'caloPriceFormatted'    => $caloPriceFormatted,
             'totalPriceFormatted'   => $totalPriceFormatted,

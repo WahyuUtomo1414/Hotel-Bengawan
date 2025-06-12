@@ -861,132 +861,28 @@ function gtext(){
 		$data['smtp_password'] = '';
 	}
 
-	//Stripe
-	$stripe_data = Tp_option::where('option_name', 'stripe')->get();
 	
-	$stripe_id = '';
-	foreach ($stripe_data as $row){
-		$stripe_id = $row->id;
-	}
-
-	if($stripe_id != ''){
-		$sData = json_decode($stripe_data);
-		$sObj = json_decode($sData[0]->option_value);
-		$data['stripe_key'] = $sObj->stripe_key;
-		$data['stripe_secret'] = $sObj->stripe_secret;
-		$data['stripe_currency'] = $sObj->currency;
-		$data['stripe_isenable'] = $sObj->isenable;
-	}else{
-		$data['stripe_key'] = '';
-		$data['stripe_secret'] = '';
-		$data['stripe_currency'] = '';
-		$data['stripe_isenable'] = '';
-	}
-
-	//Paypal
-	$paypal_data = Tp_option::where('option_name', 'paypal')->get();
-	
-	$paypal_id = '';
-	foreach ($paypal_data as $row){
-		$paypal_id = $row->id;
-	}
-	
-	if($paypal_id != ''){
-		$paypalData = json_decode($paypal_data);
-		$paypalObj = json_decode($paypalData[0]->option_value);
-		$data['paypal_client_id'] = $paypalObj->paypal_client_id;
-		$data['paypal_secret'] = $paypalObj->paypal_secret;
-		$data['paypal_currency'] = $paypalObj->paypal_currency;
-		$data['ismode_paypal'] = $paypalObj->ismode_paypal;
-		$data['isenable_paypal'] = $paypalObj->isenable_paypal;
-	}else{
-		$data['paypal_client_id'] = '';
-		$data['paypal_secret'] = '';
-		$data['paypal_currency'] = 'USD';
-		$data['ismode_paypal'] = '';
-		$data['isenable_paypal'] = '';
-	}	
-	
-	//Razorpay
-	$razorpay_data = Tp_option::where('option_name', 'razorpay')->get();
-	
-	$razorpay_id = '';
-	foreach ($razorpay_data as $row){
-		$razorpay_id = $row->id;
-	}
-	
-	if($razorpay_id != ''){
-		$razorpayData = json_decode($razorpay_data);
-		$razorpayObj = json_decode($razorpayData[0]->option_value);
-		$data['razorpay_key_id'] = $razorpayObj->razorpay_key_id;
-		$data['razorpay_key_secret'] = $razorpayObj->razorpay_key_secret;
-		$data['razorpay_currency'] = $razorpayObj->razorpay_currency;
-		$data['ismode_razorpay'] = $razorpayObj->ismode_razorpay;
-		$data['isenable_razorpay'] = $razorpayObj->isenable_razorpay;
-	}else{
-		$data['razorpay_key_id'] = '';
-		$data['razorpay_key_secret'] = '';
-		$data['razorpay_currency'] = '';
-		$data['ismode_razorpay'] = '';
-		$data['isenable_razorpay'] = '';
-	}
-	
-	//Mollie
-	$mollie_data = Tp_option::where('option_name', 'mollie')->get();
-	
-	$mollie_id = '';
-	foreach ($mollie_data as $row){
-		$mollie_id = $row->id;
-	}
-
-	if($mollie_id != ''){
-		$mollieData = json_decode($mollie_data);
-		$mollieObj = json_decode($mollieData[0]->option_value);
-		$data['mollie_api_key'] = $mollieObj->mollie_api_key;
-		$data['mollie_currency'] = $mollieObj->mollie_currency;
-		$data['ismode_mollie'] = $mollieObj->ismode_mollie;
-		$data['isenable_mollie'] = $mollieObj->isenable_mollie;
-	}else{
-		$data['mollie_api_key'] = '';
-		$data['mollie_currency'] = '';
-		$data['ismode_mollie'] = '';
-		$data['isenable_mollie'] = '';
-	}
-	
-	//Cash on Delivery (COD)
-	$cod_data = Tp_option::where('option_name', 'cash_on_delivery')->get();
-	
-	$cod_id = '';
-	foreach ($cod_data as $row){
-		$cod_id = $row->id;
-	}
-
-	if($cod_id != ''){
-		$codData = json_decode($cod_data);
-		$codObj = json_decode($codData[0]->option_value);
-		$data['cod_description'] = $codObj->description;
-		$data['cod_isenable'] = $codObj->isenable;
-	}else{
-		$data['cod_description'] = '';
-		$data['cod_isenable'] = '';
-	}
 	
 	//Bank Transfer
-	$bank_data = Tp_option::where('option_name', 'bank_transfer')->get();
+	$midtrans = Tp_option::where('option_name', 'midtrans')->get();
 	
-	$bank_id = '';
-	foreach ($bank_data as $row){
-		$bank_id = $row->id;
+	$midtrans_id = '';
+	foreach ($midtrans as $row){
+		$midtrans_id = $row->id;
 	}
 
-	if($bank_id != ''){
-		$btData = json_decode($bank_data);
+	if($midtrans_id != ''){
+		$btData = json_decode($midtrans);
 		$btObj = json_decode($btData[0]->option_value);
-		$data['bank_description'] = $btObj->description;
-		$data['bank_isenable'] = $btObj->isenable;
+		$data['midtrans_server_key'] = $btObj->server_key;
+		$data['midtrans_client_key'] = $btObj->client_key;
+		$data['midtrans_merchant_id'] = $btObj->merchant_id;
+		$data['midtrans_isenable'] = $btObj->isenable;
 	}else{
-		$data['bank_description'] = '';
-		$data['bank_isenable'] = '';
+		$data['midtrans_server_key'] = '';
+		$data['midtrans_client_key'] = '';
+		$data['midtrans_merchant_id'] = '';
+		$data['midtrans_isenable'] = '';
 	}
 
 	//MailChimp

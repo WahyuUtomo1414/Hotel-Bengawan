@@ -162,84 +162,20 @@
 						</div>
 						@endauth
 						
+
 						<h5 class="mt10">{{ __('Payment Method') }}</h5>
 						<div class="row">
 							<div class="col-md-12">
 								<span class="text-danger error-text payment_method_error"></span>
-								@if($gtext['stripe_isenable'] == 1)
-								<div class="payment_card">
-									<div class="checkboxlist">
-										<label class="checkbox-title">
-											<input id="payment_method_stripe" name="payment_method" type="radio" value="3"><img src="{{ asset('frontend/images/stripe.png') }}" alt="Stripe" />
-										</label>
-									</div>
-									<div id="pay_stripe" class="row hideclass">
-										<div class="col-md-12">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="mb-3">
-														<div class="form-control" id="card-element"></div>
-														<span class="card-errors" id="card-errors"></span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								@endif
 								
-								@if($gtext['isenable_paypal'] == 1)
-								<div class="payment_card">
-									<div class="checkboxlist">
-										<label class="checkbox-title">
-											<input id="payment_method_paypal" name="payment_method" type="radio" value="4"><img src="{{ asset('frontend/images/paypal.png') }}" alt="Paypal" />
-										</label>
-									</div>
-									<p id="pay_paypal" class="hideclass">{{ __('Pay online via Paypal') }}</p>
-								</div>
-								@endif
-								
-								@if($gtext['isenable_razorpay'] == 1)
-								<div class="payment_card">
-									<div class="checkboxlist">
-										<label class="checkbox-title">
-											<input id="payment_method_razorpay" name="payment_method" type="radio" value="5"><img src="{{ asset('frontend/images/razorpay.png') }}" alt="Razorpay" />
-										</label>
-									</div>
-									<p id="pay_razorpay" class="hideclass">{{ __('Pay online via Razorpay') }}</p>
-								</div>
-								@endif
-								
-								@if($gtext['isenable_mollie'] == 1)
-								<div class="payment_card">
-									<div class="checkboxlist">
-										<label class="checkbox-title">
-											<input id="payment_method_mollie" name="payment_method" type="radio" value="6"><img src="{{ asset('frontend/images/mollie.png') }}" alt="Mollie" />
-										</label>
-									</div>
-									<p id="pay_mollie" class="hideclass">{{ __('Pay online via Mollie') }}</p>
-								</div>
-								@endif
-								
-								@if($gtext['cod_isenable'] == 1)
-								<div class="payment_card">
-									<div class="checkboxlist">
-										<label class="checkbox-title">
-											<input id="payment_method_cod" name="payment_method" type="radio" value="1"><img src="{{ asset('frontend/images/cash_on_delivery.png') }}" alt="Cash on Delivery" />
-										</label>
-									</div>
-									<p id="pay_cod" class="hideclass">{{ $gtext['cod_description'] }}</p>
-								</div>
-								@endif
-								
-								@if($gtext['bank_isenable'] == 1)
+								@if($gtext['midtrans_isenable'] == 1)
 								<div class="payment_card">
 									<div class="checkboxlist">
 										<label class="checkbox-title">
 											<input id="payment_method_bank" name="payment_method" type="radio" value="2"><img src="{{ asset('frontend/images/bank_transfer.png') }}" alt="Bank Transfer" />
 										</label>
 									</div>
-									<p id="pay_bank" class="hideclass">{{ $gtext['bank_description'] }}</p>
+									<p id="pay_bank" class="hideclass">Bank transfer with Midtrans</p>
 								</div>
 								@endif
 							</div>
@@ -284,7 +220,24 @@
 														<div class="old-price">{{ NumberFormat($rtdata->old_price) }}{{ $gtext['currency_icon'] }}</div>
 														@endif
 													@endif
-													<div class="per-day-night">/ {{ __('Night') }}</div>
+													<div class="per-day-night">1 Person / {{ __('Night') }}</div>
+												</div>
+												<div class="room-price">
+													@if($rtdata->price2 != '')
+														@if($gtext['currency_position'] == 'left')
+														<div class="new-price">{{ $gtext['currency_icon'] }}{{ NumberFormat($rtdata->price2) }}</div>
+														@else
+														<div class="new-price">{{ NumberFormat($rtdata->price2) }}{{ $gtext['currency_icon'] }}</div>
+														@endif
+													@endif
+													@if(($rtdata->is_discount == 1) && ($rtdata->old_price2 !=''))
+														@if($gtext['currency_position'] == 'left')
+														<div class="old-price">{{ $gtext['currency_icon'] }}{{ NumberFormat($rtdata->old_price2) }}</div>
+														@else
+														<div class="old-price">{{ NumberFormat($rtdata->old_price2) }}{{ $gtext['currency_icon'] }}</div>
+														@endif
+													@endif
+													<div class="per-day-night">2 Person / {{ __('Night') }}</div>
 												</div>
 												<ul class="room-meta">
 													<li>{{ __('Adult') }} {{ $rtdata->total_adult }}</li>
@@ -305,10 +258,16 @@
 											<input type="text" name="checkout_date" id="checkout_date" class="form-control parsley-validated" data-required="true" placeholder="yyyy-mm-dd">
 											<span class="text-danger error-text checkout_date_error"></span>
 										</div>
+										<input type="hidden" name="room" id="room" value="1">
 										<div class="col-12 mb15">
-											<label for="room" class="form-label">{{ __('Room') }}</label>
-											<input type="number" name="room" id="room" class="form-control parsley-validated" data-required="true" min="1" max="{{ $total_room }}" value="1">
-											<span class="text-danger error-text room_error"></span>
+											<label for="person" class="form-label">{{ __('Person') }}</label>
+											<input type="number" name="person" id="person" class="form-control parsley-validated" data-required="true" min="1" value="1">
+											<span class="text-danger error-text person_error"></span>
+										</div>
+										<div class="col-12 mb15">
+											<label for="extra_bed" class="form-label">{{ __('Extra bed') }}</label>
+											<input type="number" name="extra_bed" id="extra_bed" class="form-control parsley-validated" data-required="true" min="0"  value="0">
+											<span class="text-danger error-text extra_bed_error"></span>
 										</div>
 										<div class="col-12 mb15">
 											<div class="r_extra">
@@ -389,23 +348,7 @@ var validCardNumer = 0;
 var TEXT = [];
 	TEXT['Please type valid card number'] = "{{ __('Please type valid card number') }}";
 </script>
-@if($gtext['stripe_isenable'] == 1)
-<script src="https://js.stripe.com/v3/"></script>
-<script type="text/javascript">
-	var isenable_stripe = "{{ $gtext['stripe_isenable'] }}";
-	var stripe_key = "{{ $gtext['stripe_key'] }}";
-</script>
-<script src="{{asset('frontend/pages/payment_method.js')}}"></script>
-@endif
 
-@if($gtext['isenable_razorpay'] == 1)
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script type="text/javascript">
-	var isenable_razorpay = "{{ $gtext['isenable_razorpay'] }}";
-	var razorpay_key_id = "{{ $gtext['razorpay_key_id'] }}";
-	var razorpay_currency = "{{ $gtext['razorpay_currency'] }}";
-</script>
-@endif
 <script src="{{asset('frontend/pages/checkout.js')}}"></script>
 @endpush
 	

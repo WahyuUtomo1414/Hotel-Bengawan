@@ -85,6 +85,24 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
+											<label for="price2">{{ __('Price') }} 2<span class="red">*</span></label>
+											<input value="{{ $datalist['price2'] }}" name="price2" id="price2" type="text" class="form-control parsley-validated" data-required="true">
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="form-group">
+											<label for="extra_bed">{{ __('Extra bed') }}<span class="red">*</span></label>
+											<input value="{{ $datalist['extra_bed'] }}" name="extra_bed" id="extra_bed" type="text" class="form-control parsley-validated" data-required="true">
+										</div>
+									</div>
+									<div class="col-lg-3">
+										<div class="form-group">
+											<label for="extra_person">{{ __('Extra person') }}<span class="red">*</span></label>
+											<input value="{{ $datalist['extra_person'] }}" name="extra_person" id="extra_person" type="text" class="form-control parsley-validated" data-required="true">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
 											<label for="tax_id">{{ __('Tax') }}<span class="red">*</span></label>
 											<select name="tax_id" id="tax_id" class="chosen-select form-control">
 											@foreach($taxlist as $row)

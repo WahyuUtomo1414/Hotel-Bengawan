@@ -261,7 +261,24 @@
 									<div class="old-price">{{ NumberFormat($row->old_price) }}{{ $gtext['currency_icon'] }}</div>
 									@endif
 								@endif
-								<div class="per-day-night">/ {{ __('Night') }}</div>
+								<div class="per-day-night">(1 Person) / {{ __('Night') }}</div>
+								<br>
+
+								@if($row->price2 != '')
+									@if($gtext['currency_position'] == 'left')
+									<div class="new-price">{{ $gtext['currency_icon'] }}{{ NumberFormat($row->price2) }}</div>
+									@else
+									<div class="new-price">{{ NumberFormat($row->price2) }}{{ $gtext['currency_icon'] }}</div>
+									@endif
+								@endif
+								@if(($row->is_discount == 1) && ($row->old_price2 !=''))
+									@if($gtext['currency_position'] == 'left')
+									<div class="old-price">{{ $gtext['currency_icon'] }}{{ NumberFormat($row->old_price2) }}</div>
+									@else
+									<div class="old-price">{{ NumberFormat($row->old_price2) }}{{ $gtext['currency_icon'] }}</div>
+									@endif
+								@endif
+								<div class="per-day-night">(2 Person) / {{ __('Night') }}</div>
 							</div>
 						</div>
 						<a href="{{ route('frontend.room', [$row->id, $row->slug]) }}" class="btn theme-btn book-now-btn">{{ __('Details') }}</a>
